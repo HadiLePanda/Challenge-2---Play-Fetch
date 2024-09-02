@@ -19,12 +19,15 @@ public class SpawnManagerX : MonoBehaviour
 
     private void Start()
     {
-        // initialize timer values
+        // initialize spawn timer values
         UpdateTimerValues();
 
         // trigger spawning logic after delay
-        Invoke(nameof(StartSpawning), startDelay);
+        Invoke(nameof(EnableSpawning), startDelay);
     }
+
+    public void EnableSpawning() => canSpawn = true;
+    public void DisableSpawning() => canSpawn = false;
 
     private void Update()
     {
@@ -32,17 +35,12 @@ public class SpawnManagerX : MonoBehaviour
         if (!canSpawn)
             return;
 
-        // wait for timer to periodically spawn a ball at random time intervals
+        // spawn a ball at random time intervals
         if (Time.time >= lastSpawnTime + nextSpawnInterval)
         {
             SpawnRandomBall();
             UpdateTimerValues();
         }
-    }
-
-    private void StartSpawning()
-    {
-        canSpawn = true;
     }
 
     private void UpdateTimerValues()

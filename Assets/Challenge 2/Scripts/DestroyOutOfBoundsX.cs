@@ -2,6 +2,7 @@
 
 public class DestroyOutOfBoundsX : MonoBehaviour
 {
+    [Header("Settings")]
     [SerializeField] private float leftLimit = -30f;
     [SerializeField] private float bottomLimit = -5f;
 
@@ -15,6 +16,10 @@ public class DestroyOutOfBoundsX : MonoBehaviour
         // destroy balls if y position is less than bottomLimit
         else if (transform.position.y < bottomLimit)
         {
+            // lose one life during gameplay
+            if (GameManager.singleton.IsGameInProgress)
+                GameManager.singleton.LoseLife(1);
+
             Destroy(gameObject);
         }
     }
